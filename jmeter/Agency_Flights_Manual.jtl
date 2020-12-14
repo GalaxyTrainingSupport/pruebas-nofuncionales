@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testResults version="1.2">
+<httpSample t="3620" it="0" lt="3551" ct="2827" ts="1606627492093" s="true" lb="reserve" rc="200" rm="OK" tn="Thread Group 1-1" dt="text" by="1547" sby="522" ng="1" na="1">
+  <java.net.URL>https://blazedemo.com/reserve.php</java.net.URL>
+</httpSample>
+<httpSample t="344" it="0" lt="342" ct="0" ts="1606627495802" s="true" lb="purchase" rc="200" rm="OK" tn="Thread Group 1-1" dt="text" by="1699" sby="580" ng="1" na="1">
+  <java.net.URL>https://blazedemo.com/purchase.php</java.net.URL>
+</httpSample>
+<httpSample t="378" it="0" lt="373" ct="0" ts="1606627496149" s="true" lb="confirmation" rc="200" rm="OK" tn="Thread Group 1-1" dt="text" by="1528" sby="701" ng="1" na="1">
+  <java.net.URL>https://blazedemo.com/confirmation.php</java.net.URL>
+</httpSample>
+
+<httpSample t="1421" it="0" lt="1418" ct="1008" ts="1606627699695" s="true" lb="reserve" rc="200" rm="OK" tn="Thread Group 1-1" dt="text" by="1417" sby="522" ng="1" na="1">
+  <java.net.URL>https://blazedemo.com/reserve.php</java.net.URL>
+</httpSample>
+<httpSample t="558" it="0" lt="557" ct="0" ts="1606627701134" s="true" lb="purchase" rc="200" rm="OK" tn="Thread Group 1-1" dt="text" by="1660" sby="580" ng="1" na="1">
+  <java.net.URL>https://blazedemo.com/purchase.php</java.net.URL>
+</httpSample>
+<httpSample t="476" it="0" lt="475" ct="0" ts="1606627701697" s="true" lb="confirmation" rc="200" rm="OK" tn="Thread Group 1-1" dt="text" by="1642" sby="701" ng="1" na="1">
+  <java.net.URL>https://blazedemo.com/confirmation.php</java.net.URL>
+</httpSample>
+
+<httpSample t="3178" it="0" lt="3166" ct="2720" ts="1606628991982" s="true" lb="reserve" rc="200" rm="OK" tn="Thread Group 1-1" dt="text" by="1428" sby="522" ng="1" na="1">
+  <java.net.URL>https://blazedemo.com/reserve.php</java.net.URL>
+</httpSample>
+<httpSample t="335" it="0" lt="332" ct="0" ts="1606628995204" s="true" lb="purchase" rc="200" rm="OK" tn="Thread Group 1-1" dt="text" by="1791" sby="580" ng="1" na="1">
+  <java.net.URL>https://blazedemo.com/purchase.php</java.net.URL>
+</httpSample>
+<httpSample t="503" it="0" lt="503" ct="0" ts="1606628995541" s="true" lb="confirmation" rc="200" rm="OK" tn="Thread Group 1-1" dt="text" by="1607" sby="701" ng="1" na="1">
+  <java.net.URL>https://blazedemo.com/confirmation.php</java.net.URL>
+</httpSample>
+
+</testResults>

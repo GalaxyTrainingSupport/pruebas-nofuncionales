@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "e1ed7f84-584d-4c4a-8116-9750f2017474",
+		"name": "Soap Request",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "IsoCode",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/xml; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n    <Body>\n        <CountryCurrency xmlns=\"http://www.oorsprong.org/websamples.countryinfo\">\n            <sCountryISOCode>GB</sCountryISOCode>\n        </CountryCurrency>\n    </Body>\n</Envelope>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso",
+					"protocol": "http",
+					"host": [
+						"webservices",
+						"oorsprong",
+						"org"
+					],
+					"path": [
+						"websamples.countryinfo",
+						"CountryInfoService.wso"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "service",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/xml; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n    <Body>\n        <ConnectLandedCost xmlns=\"https://api.crossborder.fedex.com/services/v4.5\">\n            <merchantKey xmlns=\"\">[string]</merchantKey>\n            <sellerIdKey xmlns=\"\">[string]</sellerIdKey>\n            <language xmlns=\"\">[string]</language>\n            <privateIndividuals xmlns=\"\">[string]</privateIndividuals>\n            <items xmlns=\"\">\n                <!-- Optional -->\n                <item>\n                    <productID>[string]</productID>\n                    <quantity>[int]</quantity>\n                    <price>[float]</price>\n                    <dutyId>[string]</dutyId>\n                </item>\n            </items>\n            <shipmentOriginCountry xmlns=\"\">[string]</shipmentOriginCountry>\n            <shipmentDestinationAddress1 xmlns=\"\">[string]</shipmentDestinationAddress1>\n            <shipmentDestinationAddress2 xmlns=\"\">[string]</shipmentDestinationAddress2>\n            <shipmentDestinationCity xmlns=\"\">[string]</shipmentDestinationCity>\n            <shipmentDestinationStateOrProvince xmlns=\"\">[string]</shipmentDestinationStateOrProvince>\n            <shipmentDestinationZip xmlns=\"\">[string]</shipmentDestinationZip>\n            <shipmentDestinationCountry xmlns=\"\">[string]</shipmentDestinationCountry>\n            <domesticShippingCost xmlns=\"\">[float]</domesticShippingCost>\n            <internationalShippingCost xmlns=\"\">[float]</internationalShippingCost>\n            <internationalShippingName xmlns=\"\">[string]</internationalShippingName>\n            <lossAndDamageProtectionFlag xmlns=\"\">[int]</lossAndDamageProtectionFlag>\n            <currency xmlns=\"\">[int]</currency>\n            <currencyConversionRate xmlns=\"\">[float]</currencyConversionRate>\n            <service xmlns=\"\">[int]</service>\n        </ConnectLandedCost>\n    </Body>\n</Envelope>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.crossborder.fedex.com/services/v4.4",
+					"protocol": "https",
+					"host": [
+						"api",
+						"crossborder",
+						"fedex",
+						"com"
+					],
+					"path": [
+						"services",
+						"v4.4"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

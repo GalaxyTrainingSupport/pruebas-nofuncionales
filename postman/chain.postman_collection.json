@@ -1,0 +1,238 @@
+{
+	"info": {
+		"_postman_id": "2ea645f9-2719-415a-9a49-bed635822707",
+		"name": "chain",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getUsers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aec2e62e-2e7c-4c98-ba35-82d41b785749",
+						"exec": [
+							"pm.sendRequest({",
+							"      url:  pm.environment.get(\"OAUTH_URL\")+\"/uaa/oauth/token\", ",
+							"      method: 'POST',",
+							"      header: {",
+							"        'Accept': 'application/json',",
+							"        'Content-Type': 'application/x-www-form-urlencoded',",
+							"        'Authorization': 'Basic Abcdefghijk=='",
+							"      },",
+							"      body: {",
+							"          mode: 'urlencoded',",
+							"          urlencoded: [",
+							"            {key: \"grant_type\", value: \"password\", disabled: false},",
+							"            {key: \"username\", value: pm.environment.get(\"OAUTH_USERNAME\"), disabled: false},",
+							"            {key: \"password\", value: pm.environment.get(\"OAUTH_PASSWORD\"), disabled: false}",
+							"        ]",
+							"      }",
+							"  }, function (err, res) {",
+							"        pm.globals.set(\"token\", res.json().access_token);",
+							"  });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/{{id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllUsers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4018b56b-ead3-4e38-aa1a-f907fb085034",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type header is application/json\", () => {",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}?per_page=20",
+					"host": [
+						"{{base_url}}"
+					],
+					"query": [
+						{
+							"key": "per_page",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5e1dd97d-5d0e-4d9f-88db-ce30d2ea20dc",
+						"exec": [
+							"pm.test(\"Content-Type header is present\", () => {",
+							"  pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "dc7952d0-5302-4bc6-8031-e2c4cab90267",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Carlos Rojas\",\n    \"job\": \"Senior Developer\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/{{id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2b32d4a9-120e-4b28-a822-14e8f84abd76",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e8ff8c12-4120-42eb-b722-6a99960ddb12",
+						"exec": [
+							"const responseJson = pm.response.json();",
+							"",
+							"pm.test(\"The response has all properties\", () => {",
+							"    pm.expect(responseJson.name).to.eql('Luis Ruiz');",
+							"    pm.expect(responseJson.job).to.be.equals('Developer');",
+							"    pm.expect(responseJson.id).to.have.lengthOf(3);",
+							"});",
+							"",
+							"pm.test(\"Successful POST request\", () => {",
+							"  pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});",
+							"",
+							"pm.test(\"Status code name has string\", () => {",
+							"  pm.response.to.have.status(\"Created\");",
+							"});",
+							"",
+							"pm.environment.set(\"id\", responseJson.id);",
+							"console.log(pm.environment.get(\"id\"));",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"{{name}}\",\n    \"job\": \"{{job}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}",
+					"host": [
+						"{{base_url}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

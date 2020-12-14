@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "18c495e3-9b7e-48f5-a753-80eab0482a64",
+		"name": "Easy Notes",
+		"description": "This collection contains sample request form this API\n\nIt containt follow requests\n\n## findAll\n\n## create\n\n## findOne\n\n## update\n\n## delete",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "findAll",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9f181f4f-768f-440e-8a80-c7c33434df35",
+						"exec": [
+							"console.log(\"This is a warning!\")",
+							"console.warn(\"I'm a boring old log\")",
+							"console.info(\"I am helpful information\")",
+							"console.error(\"I am annoying error\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/notes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "12e64994-88cf-4c56-930f-6a299fe8b1c3",
+						"exec": [
+							"var ramdom = Math.random();",
+							"",
+							"console.log(\"Pre request script\");",
+							"console.log(\"varianble local:\" + ramdom);",
+							"",
+							"pm.request.headers.add({",
+							"    key:\"Content-Type\",",
+							"    value:\"application/json\"",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "f618787c-601f-4438-bbc8-9bb2887990f0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"string_you_want_to_search\");",
+							"});",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value).to.eql(100);",
+							"});",
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body(\"response_body_string\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"First Note 6\",\n    \"content\": \"Create Note from Postman\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/notes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"notes"
+					]
+				},
+				"description": "Create new notes\n\n## Params:\n\nThis endpoint receive some params for create a request:\n\n\n-`title`:`String` for create title of notes.\n\n-`content`: `String` to add content detail for notes."
+			},
+			"response": []
+		},
+		{
+			"name": "create_data",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a986ef37-b0a3-435a-98bd-0f40527028d5",
+						"exec": [
+							"console.log(\"loading data from CSV ... \")",
+							"console.log(\"title is:\" + data.title)",
+							"console.log(\"name is:\" + data.content)",
+							"console.log(\"end load data from CSV ... \")",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ff5763a-c73d-4341-ab56-e50fa31a6fac",
+						"exec": [
+							"console.info(\"showing data after request ...\")",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"{{title}}\",\n    \"content\": \"{{content}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/notes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"notes"
+					]
+				},
+				"description": "Create new notes\n\n## Params:\n\nThis endpoint receive some params for create a request:\n\n\n-`title`:`String` for create title of notes.\n\n-`content`: `String` to add content detail for notes."
+			},
+			"response": []
+		},
+		{
+			"name": "findOne",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"First Note 3\",\n    \"content\": \"Create Note from Postman\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/notes/5fa1793e66107aa7df7169a9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"notes",
+						"5fa1793e66107aa7df7169a9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"First Note 4 UPDATED\",\n    \"content\": \"Create Note from Postman\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/notes/5f95b0596dbda822d5a0d7e7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"notes",
+						"5f95b0596dbda822d5a0d7e7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"First Note 4 UPDATED\",\n    \"content\": \"Create Note from Postman\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/5f95b0596dbda822d5a0d7e7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"5f95b0596dbda822d5a0d7e7"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "88435d1c-92b0-47bf-9063-6d0f2701987b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "a6109b45-62c9-4516-b399-4823ab6d6e1c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

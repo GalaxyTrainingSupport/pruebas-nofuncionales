@@ -1,0 +1,342 @@
+{
+	"info": {
+		"_postman_id": "fb1dbb16-0264-401c-817e-34359febaf24",
+		"name": "Easy Notes Chains",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "findAll",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9864f10f-8d59-49a1-afba-70fe86add6f4",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "455909de-e97e-4538-8ffa-818d936d94dd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(300);",
+							"});",
+							"",
+							"var bodyData = pm.response.json;",
+							"",
+							"console.log(bodyData.title);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/notes",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "658ca448-3396-401e-9ad2-01132cffe695",
+						"exec": [
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8ab94113-5939-4ef1-9ef6-5534063bc136",
+						"exec": [
+							"//create constant ",
+							"const responseJson = pm.response.json();",
+							"",
+							"//find response code in 201,202",
+							"pm.test(\"Successful POST request\", () => {",
+							"  pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});",
+							"",
+							"/*pm.test(\"Status code name has string\", () => {",
+							"  pm.response.to.have.status(\"Created\");",
+							"});*/",
+							"",
+							"//find text include",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Timeless✔️ Beauty❤️ Alphaville\");",
+							"});",
+							"",
+							"//verify all properties content",
+							"pm.test(\"The response has all properties\", () => {",
+							"    pm.expect(responseJson.title).to.eql('Timeless✔️ Beauty❤️ Alphaville');",
+							"    pm.expect(responseJson.content).to.be.equals('Forever Young - (Jennifer Connelly 1990s) (1980s Music)');",
+							"    pm.expect(responseJson._id).to.have.lengthOf(24);",
+							"});",
+							"",
+							"//create env variable as id_create ",
+							"pm.environment.set(\"id_created\", responseJson._id);",
+							"console.log(\"The id Created is:\" + pm.environment.get(\"id_created\"));",
+							"",
+							"//send variable to \"findOne\" request",
+							"pm.sendRequest({",
+							"    url: pm.environment.get(\"base_url\") + '/notes/' + pm.environment.get(\"id_created\"),",
+							"    method: 'GET'",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"{{title}}\",\n    \"content\": \"{{content}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/notes",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findOne",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b41941be-bc5e-43a4-9926-03cbe9795fef",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2434f5c6-f4ca-4f30-ab0a-d3beef02e970",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: pm.environment.get(\"base_url\") + '/notes/' + pm.environment.get(\"id_created\"),",
+							"    method: 'PUT',",
+							"    header: 'Content-Type:application/json',",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify(",
+							"            {",
+							"                title: \"hello for update\",",
+							"                content: \"postman for update\"",
+							"            }",
+							"        )",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/notes/{{id_created}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"notes",
+						"{{id_created}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findOne Copy",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ef51561e-9714-43be-9e05-3f1ad463fd60",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "1369a6aa-cbdc-45a2-9522-10aa84bae968",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: pm.environment.get(\"base_url\") + '/notes/' + pm.environment.get(\"id_created\"),",
+							"    method: 'PUT',",
+							"    header: 'Content-Type:application/json',",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify(",
+							"            {",
+							"                title: \"hello for update\",",
+							"                content: \"postman for update\"",
+							"            }",
+							"        )",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/notes/5fa81746f3b7b31cd76919ae",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"notes",
+						"5fa81746f3b7b31cd76919ae"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecff8856-88e0-458c-86b0-da669ed0eec8",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3d2c48c5-bd5b-41d1-9ecb-3847b984a0ca",
+						"exec": [
+							"console.log(\"This is a warning!\")",
+							"console.warn(\"I'm a boring old log\")",
+							"console.info(\"I am helpful information\")",
+							"console.error(\"I am annoying error\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"{{title}}\",\n    \"content\": \"{{content}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/notes/{{id_created}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"notes",
+						"{{id_created}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/{{id_created}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"{{id_created}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "092a1428-8835-402a-b939-6f35ea8bde55",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5d6f1f8e-4c6d-42df-a4e9-883772369d67",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
